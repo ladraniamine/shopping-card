@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import imageofproduct from '../images/google-play.jpg'
-import {  useSelector } from 'react-redux'
+import React from 'react'
 
+import {  useSelector } from 'react-redux'
 
 const ProductsComponent = () => {
     const {newshoppingcard} = useSelector(state=> state.data)
-    const {idcard} = useSelector(state=>state.data)
-   
-
     
-       
-
-       console.log(newshoppingcard)
-    
- 
-   
-
-
-
-
-
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
         <div className='row w-100  mx-0 px-0 '>

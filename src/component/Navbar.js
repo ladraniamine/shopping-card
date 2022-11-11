@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import ProductsComponent from './ProductsComponent'
-
 
 const Navbar = () => {
 
@@ -16,11 +15,20 @@ const Navbar = () => {
     isUsername = false
   }
 
-
-
-
+  const {newshoppingcard} = useSelector(state=> state.data)
+  let newarr = newshoppingcard.map((item)=>{
+    return item.qnt
+  })
+   
+   let sum = 0 ; 
+  for (let index = 0; index < newarr.length; index++) {
+    sum += newarr[index]
+  }
+  
+  console.log(sum)
+ 
   return (
-    <nav class="navbar bg-dark text-light">
+    <nav class="navbar bg-dark text-light " style={{"position":"fixed","top":"0","width":"100%","zIndex":"11"}}>
     <div class="container-fluid">
       <div>
       <span class="navbar-brand mb-0 h1">{isUsername?username[0].username:"annonyme"}</span>
@@ -43,12 +51,11 @@ const Navbar = () => {
                     <div className='bg-dark coma-drop '></div>
                     <ProductsComponent/>
                 </div>
-                <span className='total-cards'>0</span>
+                <span className='total-cards'>{sum}</span>
               
             </a>
         </li>
     </ul>
-
 
     </div>
   </nav>

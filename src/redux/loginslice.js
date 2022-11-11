@@ -51,7 +51,7 @@ export const loginslice = createSlice({
                         state[1][0].emailnotvalid = null
                         state[1][0].passwordnotvalid = null
                         state[1][0].loginsucsses = "login success"
-                        state[1][0].path = "/home"
+                        state[1][0].path = "/"
                     }else{
                         state[1][0].emailnotvalid = null
                         state[1][0].passwordnotvalid = "the password is incorect"
