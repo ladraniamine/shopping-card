@@ -34,7 +34,7 @@ const ProductsComponent = () => {
              </div>})}
            
         </div>
-
+{/* remove it later */}
         <div className='row mx-0 w-100 align-items-center mt-4'>
             <div className='col-8 '>
                        <div className='my-buttons'>
