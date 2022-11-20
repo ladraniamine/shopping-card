@@ -56,7 +56,6 @@ const ProductsComponent = () => {
             </div>
         </div>
     </div>
-    // add comment
   )
 }
 
