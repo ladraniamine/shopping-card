@@ -25,8 +25,6 @@ const Navbar = () => {
     sum += newarr[index]
   }
   
-  console.log(sum)
- 
   return (
     <nav class="navbar bg-dark text-light " style={{"position":"fixed","top":"0","width":"100%","zIndex":"11"}}>
     <div class="container-fluid">

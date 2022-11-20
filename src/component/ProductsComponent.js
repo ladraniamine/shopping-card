@@ -1,9 +1,16 @@
+
 import React from 'react'
 
 import {  useSelector } from 'react-redux'
 
 const ProductsComponent = () => {
     const {newshoppingcard} = useSelector(state=> state.data)
+    
+    let total = 0
+    for (let index = 0; index < newshoppingcard.length; index++) {
+        window["totalPriceCard"+index] = newshoppingcard[index].price * newshoppingcard[index].qnt
+        total += window["totalPriceCard"+index]
+    }
     
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
@@ -34,7 +41,7 @@ const ProductsComponent = () => {
              </div>})}
            
         </div>
-{/* remove it later */}
+
         <div className='row mx-0 w-100 align-items-center mt-4'>
             <div className='col-8 '>
                        <div className='my-buttons'>
@@ -44,7 +51,7 @@ const ProductsComponent = () => {
             </div>
             <div className='col-4 '>
                 <div className='total-price px-2 text-danger' style={{"fontSize":"25px","fontWeight":"bold"}}>
-                    120$
+                    {total}$
                 </div>
             </div>
         </div>
