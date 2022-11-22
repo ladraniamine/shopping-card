@@ -7,19 +7,10 @@ const Login = () => {
   const dispatch = useDispatch()
   const  info = useSelector(state=>state.login[1][0])
  
-  
-  console.log(info.emailnotvalid)
-  console.log(info.passwordnotvalid)
-  console.log(info.loginsucsses)
-  console.log(info.path)
-
   const [email,setemail] = useState("");
   const [password , setpassword] = useState("");
   const [isEmpty, setisEmty] = useState(true);
 
- 
-
- 
 //to check if ur inputs are empty or not
   useEffect(()=>{ 
           if(email !== ""  && password !== ""){
@@ -33,11 +24,7 @@ const Login = () => {
 const handlelogin = ()=>{
   dispatch(checklogin({email , password}))
 
-
 }
-
-
-
 
   return (
     

@@ -4,11 +4,9 @@ import { addtocard } from '../redux/dataSlice';
 
 const Card = () => {
 
-
   const {data} = useSelector(state=> state.data);
   const username = useSelector(state=> state.login[2]);
  
-  
   const dispatch = useDispatch();
 
   let isUsername ;
@@ -19,8 +17,6 @@ const Card = () => {
     isUsername = false
   }
     
-
-
   return (
     
   <>
@@ -30,7 +26,7 @@ const Card = () => {
           <img src={item.image} className="card-img-top" alt="..." />
           <div className="card-body">
             <h5 className="card-title">{item.nameOfProduct} <span>{item.price}$</span></h5>
-            <button   className={isUsername?"btn btn-primary":"btn btn-primary "} onClick={()=>{dispatch(addtocard({id:item.id}))}} >add to card</button>
+            <button   className={isUsername?"btn btn-primary":"btn btn-primary disabled"} onClick={()=>{dispatch(addtocard({id:item.id}))}} >add to card</button>
           </div>
         </div>
     </div>)
@@ -39,7 +35,6 @@ const Card = () => {
       }
   </>    
     
-
   )
 }
 
