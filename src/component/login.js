@@ -6,7 +6,8 @@ import { checklogin } from '../redux/loginslice';
 const Login = () => {
   const dispatch = useDispatch()
   const  info = useSelector(state=>state.login[1][0])
- 
+  const users = useSelector(state=>state.login[0])
+  
   const [email,setemail] = useState("");
   const [password , setpassword] = useState("");
   const [isEmpty, setisEmty] = useState(true);
@@ -23,7 +24,10 @@ const Login = () => {
 //to check if the email and the password exict and login
 const handlelogin = ()=>{
   dispatch(checklogin({email , password}))
-
+// set the user data in localstorage 
+let user = users.find(user =>  user.email === email)
+let storuser = JSON.stringify(user)
+localStorage.setItem("user",storuser)
 }
 
   return (

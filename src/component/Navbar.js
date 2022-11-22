@@ -5,13 +5,14 @@ import ProductsComponent from './ProductsComponent'
 
 const Navbar = () => {
 
-  const username = useSelector(state=> state.login[2]);
- 
+ //check the locale storage first if there is anyting display it there in nothing check the next process
   let isUsername ;
-  
-  if(username[0] !== undefined ){
+  let getuser = localStorage.getItem("user")
+  let toparuser = JSON.parse(getuser);
+   
+  if(toparuser){
     isUsername = true
-  } else{
+  }else{
     isUsername = false
   }
 
@@ -29,7 +30,7 @@ const Navbar = () => {
     <nav class="navbar bg-dark text-light " style={{"position":"fixed","top":"0","width":"100%","zIndex":"11"}}>
     <div class="container-fluid">
       <div>
-      <span class="navbar-brand mb-0 h1">{isUsername?username[0].username:"annonyme"}</span>
+      <span class="navbar-brand mb-0 h1">{isUsername?toparuser.username:"annonyme"}</span>
       <NavLink to="/login">
         <button className='btn btn-warning'>{isUsername?"logout":"login"}</button>
       </NavLink>
@@ -37,7 +38,7 @@ const Navbar = () => {
 
     <ul className='nav '>
         <li className='nav-item mx-5'>
-            <a className='nav-link' style={{"color":"#07ff07","fontWeight":"bold"}}>{isUsername?'1000$':""}</a>
+            <a className='nav-link' style={{"color":"#07ff07","fontWeight":"bold"}}>{isUsername? toparuser.amount+"$":""}</a>
         </li>
         <li className='nav-item '>
             <a className='nav-link shopping-card dropdown'>

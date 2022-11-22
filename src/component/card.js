@@ -5,15 +5,17 @@ import { addtocard } from '../redux/dataSlice';
 const Card = () => {
 
   const {data} = useSelector(state=> state.data);
-  const username = useSelector(state=> state.login[2]);
- 
+  
   const dispatch = useDispatch();
 
   let isUsername ;
   
-  if(username[0] !== undefined ){
+  let getuser = localStorage.getItem("user")
+  let toparuser = JSON.parse(getuser);
+   
+  if(toparuser){
     isUsername = true
-  } else{
+  }else{
     isUsername = false
   }
     

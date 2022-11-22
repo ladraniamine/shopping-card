@@ -9,19 +9,25 @@ export const loginslice = createSlice({
             id:1,
             username:"amine ladrani",
             email:"amineladrani@gmail.com",
-            password:"amine123"
+            amount:10000,
+            password:"amine123",
+            shoppingcard:[]
         },
         {
             id:2,
             username:"dado ladrani",
             email:"dadoladrani@gmail.com",
-            password:"dado123"
+            password:"dado123",
+            amount:10000,
+            shoppingcard:[]
         },
         {
           id:3,
           username:"a",
           email:"a",
-          password:"a"
+          password:"a",
+          amount:10000,
+          shoppingcard:[]
       }
       ],
       [
