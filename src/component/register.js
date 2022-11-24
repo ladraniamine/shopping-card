@@ -11,23 +11,18 @@ const Register = () => {
       console.log('re-evaluate register page')
     },[])
   
-
   const [fullname,setfullname] = useState('');
   const [email,setemail] = useState('');
   const [password,setpassword] = useState('');
 
-   
     const handleclick = ()=>{
 
       dispatch(newregister({username: fullname , email,password}))
       
-
     }
-
 
   return (
     <div className='row' style={{"width":"100vw","height":"100vh"}}>
-      {console.log('re-render')}
       <div className=' row m-auto '>
           <div className='col-12 text-center'>
             <input className='form-control m-auto' placeholder='full name' style={{"width":"200px"}} onChange={(e)=> setfullname(e.target.value)}/>

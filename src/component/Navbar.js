@@ -16,8 +16,8 @@ const Navbar = () => {
     isUsername = false
   }
 
-  const {newshoppingcard} = useSelector(state=> state.data)
-  let newarr = newshoppingcard.map((item)=>{
+  const {shoppingcard} = useSelector(state=> state.data)
+  let newarr = shoppingcard.map((item)=>{
     return item.qnt
   })
    

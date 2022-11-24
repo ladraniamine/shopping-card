@@ -4,18 +4,30 @@ import React from 'react'
 import {  useSelector } from 'react-redux'
 
 const ProductsComponent = () => {
-    const {newshoppingcard} = useSelector(state=> state.data)
+    const {shoppingcard} = useSelector(state=> state.data)
+console.log(shoppingcard)
+    //
+    let getuserX = localStorage.getItem("user")
+    let getuser = JSON.parse(getuserX)
+    let shoppingcardx = getuser.shoppingcard
     
+    //
+   
+    //
+    //
+    //
+    //
+    //
     let total = 0
-    for (let index = 0; index < newshoppingcard.length; index++) {
-        window["totalPriceCard"+index] = newshoppingcard[index].price * newshoppingcard[index].qnt
+    for (let index = 0; index < shoppingcardx.length; index++) {
+        window["totalPriceCard"+index] = shoppingcardx[index].price * shoppingcardx[index].qnt
         total += window["totalPriceCard"+index]
     }
     
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
         <div className='row w-100  mx-0 px-0 '>
-       {newshoppingcard.length == 0?<div className='col-12 text-center m-0 p-0 align-items-center'>there is no card</div>:newshoppingcard.map((card)=>{
+       {shoppingcardx.length == 0?<div className='col-12 text-center m-0 p-0 align-items-center'>there is no card</div>:shoppingcardx.map((card)=>{
             return <div className='col-12 row mx-0 px-0 py-2 align-items-center text-center' key={card.id}>
                  <div className='col-3'>
                      <div className='product-image' style={{"width":"50px", "height":"50px","backgroundColor":"red","borderRadius":"50%","overflow":"hidden"}}>

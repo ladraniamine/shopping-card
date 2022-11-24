@@ -12,103 +12,119 @@ export const dataSlice = createSlice({
                     nameOfProduct: "google play cards",
                     price:10,
                     image:require('../images/google-play.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
                 {
                     id:2,
                     nameOfProduct: "google play cards",
                     price:15,
                     image:require('../images/google-play.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
                 {
                     id:3,
                     nameOfProduct: "google play cards",
                     price:20,
                     image:require('../images/google-play.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
                 {
                     id:4,
                     nameOfProduct: "google play cards",
                     price:50,
                     image:require('../images/google-play.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
-        
         
                 {
                     id:5,
                     nameOfProduct: "amazon cards",
                     price:10,
                     image:require('../images/amazin-card.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
                 {
                     id:6,
                     nameOfProduct: "amazon cards",
                     price:15,
                     image:require('../images/amazin-card.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
                 {
                     id:7,
                     nameOfProduct: "amazon cards",
                     price:20,
                     image:require('../images/amazin-card.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
                 {
                     id:8,
                     nameOfProduct: "amazon cards",
                     price:50,
                     image:require('../images/amazin-card.jpg'),
-                    stock:100
+                    stock:100,
+                    qnt:1,
                 },
         
-
         ],
-        shoppingcard:[],
-        idcard:[],
-        newshoppingcard:[]
+        shoppingcard:JSON.parse(localStorage.getItem("user"))?JSON.parse(localStorage.getItem("user")).shoppingcard:[],
     },
 
     reducers:{
         addtocard:(state,action)=>{
-            //filter the card that i clicked
-        let mycard = state.data.filter(card => card.id === action.payload.id) 
-            //add the qtn to this card filtred and give it a value = 1
-        mycard[0].qnt = 1 ; 
-            //id of the card i clicked maybe i will need it later maybe
-        state.idcard[0] = action.payload.id
-            //push this card to shopping card collection
-       state.shoppingcard.push(mycard[0])
-            //take the addition of dublicate element and add it in qtn
-       for (let i = 0; i < state.shoppingcard.length; i++) {  
-            window['arr'+i] = state.shoppingcard.filter( item => item.id == i ) 
-            window['num'+i] = window['arr'+i].length
-            state.shoppingcard.map((e)=>{
-                if(e.id == i){
-                    e.qnt = window['num'+i]
+                // filter the card that i clicked from the home page
+                let mycard = state.data.filter(card => card.id === action.payload.id)
+                //check if my shopping card array its empty or == []
+                if(state.shoppingcard.length == 0 ){
+                    //push that card to shopping card array
+                    state.shoppingcard.push(mycard[0])
+                    //=======add to the locale storage===========
+                    let user = JSON.parse(localStorage.getItem("user"))
+                    user.shoppingcard.push(mycard[0])
+                    localStorage.setItem("user",JSON.stringify(user))
+                    //===========================================
                 }
-            })
-        }
-            // remove the duplicate element
-        let newarray = state.shoppingcard.reduce((unique, o)=>{
-                if(!unique.some(obj=>obj.id === o.id)){
-                    unique.push(o)
+                //in the case that i have card in my shopping card or != []
+                else{
+                  // this array return the card that i clicked if its exist in my shopping card
+                  let existingCard = state.shoppingcard.filter( card => card.id === mycard[0].id)
+                  //in the case that card its exist
+                  if(existingCard.length != 0){
+                        state.shoppingcard.map( card => {
+                            if(card.id === mycard[0].id){
+                                card.qnt += 1
+                            }
+                        })
+                        //=======add to the locale storage===========
+                        let user = JSON.parse(localStorage.getItem("user"))
+                            user.shoppingcard.map( card => {
+                                if(card.id === mycard[0].id){
+                                    card.qnt += 1
+                                }
+                            })
+                        localStorage.setItem("user",JSON.stringify(user))
+                        //===========================================
+                  }
+                  //in the case that card its not existed
+                  else{
+                        state.shoppingcard.push(mycard[0])
+                        //=======add to the locale storage===========
+                        let user = JSON.parse(localStorage.getItem("user"))
+                        user.shoppingcard.push(mycard[0])
+                        localStorage.setItem("user",JSON.stringify(user))
+                        //===========================================
+                  }
                 }
-                return unique;
-        },[])
-            //the clean shopping card and it ready to use it
-        state.newshoppingcard = newarray
-
+            }
+     
     }
-}
-
-
-
-
 })
 
 export const {addtocard} = dataSlice.actions
