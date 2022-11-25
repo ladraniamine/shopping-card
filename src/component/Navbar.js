@@ -32,7 +32,7 @@ const Navbar = () => {
       <div>
       <span class="navbar-brand mb-0 h1">{isUsername?toparuser.username:"annonyme"}</span>
       <NavLink to="/login">
-        <button className='btn btn-warning'>{isUsername?"logout":"login"}</button>
+        <button className='btn btn-warning' onClick={()=>{ localStorage.clear()}}>{isUsername?"logout":"login"}</button>
       </NavLink>
       </div>
 

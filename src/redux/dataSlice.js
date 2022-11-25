@@ -80,13 +80,13 @@ export const dataSlice = createSlice({
     reducers:{
         addtocard:(state,action)=>{
                 // filter the card that i clicked from the home page
-                let mycard = state.data.filter(card => card.id === action.payload.id)
+                const mycard = state.data.filter(card => card.id === action.payload.id)
                 //check if my shopping card array its empty or == []
                 if(state.shoppingcard.length == 0 ){
                     //push that card to shopping card array
                     state.shoppingcard.push(mycard[0])
                     //=======add to the locale storage===========
-                    let user = JSON.parse(localStorage.getItem("user"))
+                    const user = JSON.parse(localStorage.getItem("user"))
                     user.shoppingcard.push(mycard[0])
                     localStorage.setItem("user",JSON.stringify(user))
                     //===========================================
@@ -94,7 +94,7 @@ export const dataSlice = createSlice({
                 //in the case that i have card in my shopping card or != []
                 else{
                   // this array return the card that i clicked if its exist in my shopping card
-                  let existingCard = state.shoppingcard.filter( card => card.id === mycard[0].id)
+                  const existingCard = state.shoppingcard.filter( card => card.id === mycard[0].id)
                   //in the case that card its exist
                   if(existingCard.length != 0){
                         state.shoppingcard.map( card => {
@@ -103,7 +103,7 @@ export const dataSlice = createSlice({
                             }
                         })
                         //=======add to the locale storage===========
-                        let user = JSON.parse(localStorage.getItem("user"))
+                        const user = JSON.parse(localStorage.getItem("user"))
                             user.shoppingcard.map( card => {
                                 if(card.id === mycard[0].id){
                                     card.qnt += 1
@@ -116,7 +116,7 @@ export const dataSlice = createSlice({
                   else{
                         state.shoppingcard.push(mycard[0])
                         //=======add to the locale storage===========
-                        let user = JSON.parse(localStorage.getItem("user"))
+                        const user = JSON.parse(localStorage.getItem("user"))
                         user.shoppingcard.push(mycard[0])
                         localStorage.setItem("user",JSON.stringify(user))
                         //===========================================
