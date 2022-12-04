@@ -1,56 +1,35 @@
 
 import React from 'react'
 
-import {  useSelector } from 'react-redux'
-
 const ProductsComponent = () => {
-    const {shoppingcard} = useSelector(state=> state.data)
-console.log(shoppingcard)
-    //
-    let getuserX = localStorage.getItem("user")
-    let getuser = JSON.parse(getuserX)
-    let shoppingcardx = getuser.shoppingcard
-    
-    //
    
-    //
-    //
-    //
-    //
-    //
-    let total = 0
-    for (let index = 0; index < shoppingcardx.length; index++) {
-        window["totalPriceCard"+index] = shoppingcardx[index].price * shoppingcardx[index].qnt
-        total += window["totalPriceCard"+index]
-    }
-    
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
         <div className='row w-100  mx-0 px-0 '>
-       {shoppingcardx.length == 0?<div className='col-12 text-center m-0 p-0 align-items-center'>there is no card</div>:shoppingcardx.map((card)=>{
-            return <div className='col-12 row mx-0 px-0 py-2 align-items-center text-center' key={card.id}>
+    
+             <div className='col-12 row mx-0 px-0 py-2 align-items-center text-center' >
                  <div className='col-3'>
                      <div className='product-image' style={{"width":"50px", "height":"50px","backgroundColor":"red","borderRadius":"50%","overflow":"hidden"}}>
-                         <img className='img-fluid h-100' src={card.image} />
+                         <img className='img-fluid h-100' src={require("../images/amazin-card.jpg")} />
                      </div>
                  </div>
                  <div className='col-4'>
                      <div className='name-of-product'>
-                         {card.nameOfProduct}
+                         name of product
                      </div>
                  </div>
                  <div className='col-3'>
                      <div className='price'>
-                         {card.price}$
+                         15$
                      </div>
                  </div>
                  <div className='col-2'>
                      <div className='quantite'>
-                             {card.qnt}
+                             2
                      </div>
                  </div>
                  <hr className='mt-2 m-auto' style={{"width":"50%"}}/>
-             </div>})}
+             </div>
            
         </div>
 
@@ -63,7 +42,7 @@ console.log(shoppingcard)
             </div>
             <div className='col-4 '>
                 <div className='total-price px-2 text-danger' style={{"fontSize":"25px","fontWeight":"bold"}}>
-                    {total}$
+                    200$
                 </div>
             </div>
         </div>
