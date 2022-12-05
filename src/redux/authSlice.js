@@ -19,7 +19,13 @@ export const checkuser = createAsyncThunk("auth/checkuser", async(Data,thunkAPI)
 
 export const authSlice = createSlice({
     name:"auth",
-    initialState:{isloggedIn:false,isloading:false, user:null},
+    initialState:{
+      isloggedIn:false,
+      isloading:false, 
+      user:null,
+      statusEmail:null,
+      statusPassword:null
+    },
 
     reducers:{//========= reducers ==================
       loggedin:(state)=>{
@@ -37,30 +43,32 @@ export const authSlice = createSlice({
         [checkuser.fulfilled]:(state,action)=>{
           state.isloading = false;
           const {data , password} = action.payload
-          
+        
           //check if email is exist =====================
           if(data){
-            console.log("the email is exist")
+            state.statusEmail = null
+            state.isloggedIn = false
             //in the case the password is correct =======
               if(data.password === password){
                   state.isloggedIn = true
+                  state.statusPassword = null
                   state.user = data
               }
             //==========================================
-
             //in the case the password is not correct ===
               else{
                   state.isloggedIn = false
-                  console.log("the password is incorrect")
+                  state.statusPassword = " password incorrect"
               }
             //==========================================
           }
           //==============================================
-
           //in the case the email is doesnt exist ========
           else{
             state.isloggedIn = false
-            console.log("the email is deosn't exict ")
+            state.statusEmail = " email incorrect "
+            state.statusPassword = " password incorrect"
+
           }
           //==============================================
         },
