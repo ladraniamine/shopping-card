@@ -1,14 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import ProductsComponent from './ProductsComponent'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
+  const {user} = useSelector(state => state.auth)
+
+  console.log(user)
 
   return (
     <nav class="navbar bg-dark text-light " style={{"position":"fixed","top":"0","width":"100%","zIndex":"11"}}>
     <div class="container-fluid">
       <div>
-      <span class="navbar-brand mb-0 h1">annonyme</span>
+      <span class="navbar-brand mb-0 h1">{user?user.username:"annonyme"}</span>
       <NavLink to="/login">
         <button className='btn btn-warning' >logout</button>
       </NavLink>
@@ -16,7 +20,7 @@ const Navbar = () => {
 
     <ul className='nav '>
         <li className='nav-item mx-5'>
-            <a className='nav-link' style={{"color":"#07ff07","fontWeight":"bold"}}>10000$</a>
+            <a className='nav-link' style={{"color":"#07ff07","fontWeight":"bold"}}>{user?user.amount+"$":""}</a>
         </li>
         <li className='nav-item '>
             <a className='nav-link shopping-card dropdown'>

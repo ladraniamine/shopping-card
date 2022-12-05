@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getDataCards } from '../redux/dataSlice'
 
 const Card = () => {
+  
   const dispatch = useDispatch()
+
   //======= dispatch getDataCards() action when application is open =====
     useEffect(()=>{                                                    //
       dispatch(getDataCards())                                         //
