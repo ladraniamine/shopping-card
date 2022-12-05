@@ -16,13 +16,29 @@ export const checkuser = createAsyncThunk("auth/checkuser", async(Data,thunkAPI)
 
 })
 //=====================================================================================
+//====================================extra action loggout ============================
+export const loggout = createAsyncThunk("auth/loggout", async(args,thunkAPI)=>{
+  const {rejectWithValue , getState} = thunkAPI
+  try{
+    localStorage.clear()
+    getState.auth.isloggedIn = false
+    getState.auth.user = null
+    getState.auth.statusEmail = null
+    getState.auth.statusPassword = null
+    
+    console.log(getState())
+  }catch(err){
+    return rejectWithValue(err.message)
+  }
+})
+//=====================================================================================
 
 export const authSlice = createSlice({
     name:"auth",
     initialState:{
       isloggedIn:false,
       isloading:false, 
-      user:null,
+      user:JSON.parse(localStorage.getItem("user") )|| null,
       statusEmail:null,
       statusPassword:null
     },

@@ -6,11 +6,7 @@ import { checkuser } from '../redux/authSlice'
 const Login = () => {
   const dispatch = useDispatch()
   const {isloggedIn , isloading , statusEmail , statusPassword} = useSelector(state=> state.auth)
-  console.log("isloading: "+isloading)
-  console.log("loggedin: "+isloggedIn)
-  console.log("statusEmail: "+statusEmail)
-  console.log("statusPassword: "+statusPassword)
-
+  
   const email = useRef()
   const password = useRef()
 

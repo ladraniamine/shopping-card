@@ -1,7 +1,6 @@
 import React from 'react'
 import Card from './card'
 import Navbar from './Navbar'
-import { useSelector } from 'react-redux'
 
 const Home = () => {
   

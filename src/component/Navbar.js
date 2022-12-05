@@ -1,20 +1,24 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import ProductsComponent from './ProductsComponent'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { loggout } from '../redux/authSlice'
 
 const Navbar = () => {
   const {user} = useSelector(state => state.auth)
-
-  console.log(user)
-
+  const dispatch = useDispatch()
+  //send user to locale storage
+  localStorage.setItem("user", JSON.stringify(user))
+  const handleloggout = ()=>{
+    dispatch(loggout())
+  }
   return (
     <nav class="navbar bg-dark text-light " style={{"position":"fixed","top":"0","width":"100%","zIndex":"11"}}>
     <div class="container-fluid">
       <div>
       <span class="navbar-brand mb-0 h1">{user?user.username:"annonyme"}</span>
       <NavLink to="/login">
-        <button className='btn btn-warning' >logout</button>
+        <button className='btn btn-warning' onClick={handleloggout}>logout</button>
       </NavLink>
       </div>
 
