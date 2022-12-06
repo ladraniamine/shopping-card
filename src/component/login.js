@@ -1,17 +1,20 @@
-import React, {  useRef } from 'react'
+import React, {  useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { checkuser } from '../redux/authSlice'
 
 const Login = () => {
   const dispatch = useDispatch()
-  const {isloggedIn , isloading , statusEmail , statusPassword} = useSelector(state=> state.auth)
+  const { isloading , statusEmail , statusPassword} = useSelector(state=> state.auth)
   
   const email = useRef()
   const password = useRef()
 
-  const handleSubmit = ()=>{
-    dispatch(checkuser({email:email.current.value , password:password.current.value}))
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+      dispatch(checkuser({email:email.current.value , 
+                      password:password.current.value}))
+                 
   }
   return (
     
@@ -28,10 +31,11 @@ const Login = () => {
                  {statusPassword?<div className='text-danger'>{statusPassword}</div>:""}
             </div>
             <div className='col-12  w-50 m-auto mt-2 row'>
-              <NavLink to={isloggedIn?"/":"/login"} className="col-5 m-auto btn btn-primary" onClick={handleSubmit}>
-                login
+            
+                 <button className='col-5 m-auto btn btn-primary ' onClick={handleSubmit}>login
                 {isloading?<span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>:""}
-              </NavLink>
+                 </button>
+              
               <NavLink to="/register" className="col-5 m-auto btn btn-secondary">
                   register
                 </NavLink>

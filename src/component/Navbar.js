@@ -7,8 +7,7 @@ import { loggout } from '../redux/authSlice'
 const Navbar = () => {
   const {user} = useSelector(state => state.auth)
   const dispatch = useDispatch()
-  //send user to locale storage
-  localStorage.setItem("user", JSON.stringify(user))
+  
   const handleloggout = ()=>{
     dispatch(loggout())
   }

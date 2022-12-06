@@ -69,6 +69,9 @@ export const authSlice = createSlice({
                   state.isloggedIn = true
                   state.statusPassword = null
                   state.user = data
+                  window.location = "http://localhost:3000/"
+                localStorage.setItem("user", JSON.stringify(data))
+
               }
             //==========================================
             //in the case the password is not correct ===
