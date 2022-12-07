@@ -1,6 +1,7 @@
 import React, { useEffect }  from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDataCards } from '../redux/dataSlice'
+import { addtocard } from '../redux/cardSlice'
 
 const Card = () => {
   
@@ -25,7 +26,7 @@ const Card = () => {
           <div className="card-body">
             <h5 className="card-title">{card.nameOfProduct} <span>{card.price}$</span></h5>
             <div className='mb-2'>stock: <strong>{card.stock}</strong></div>
-            <button className="btn btn-primary">add to card</button>
+            <button className="btn btn-primary" onClick={()=>{dispatch(addtocard({id:card.id}))}}>add to card</button>
           </div>
         </div>
       </div>)
