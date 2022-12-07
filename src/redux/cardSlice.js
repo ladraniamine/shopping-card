@@ -1,6 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+export const delletAllCards = createAsyncThunk("card/delletAllCardd", async(args,thunkAPI)=>{
+      const {rejectWithValue , getState} = thunkAPI
+      try{
+        const userID = await getState().auth.user.id
+
+          fetch(`http://localhost:3005/users/${userID}`, { 
+            method: "PATCH",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({ "shoppingcard": [] })
+          });
+
+// update the shopping card in locale storage
+const getuseInlocaleStorage = JSON.parse(localStorage.getItem("user"))
+getuseInlocaleStorage.shoppingcard = []
+localStorage.setItem("user", JSON.stringify(getuseInlocaleStorage))
+
+      }catch(err){
+        return rejectWithValue(err.message)
+      }
+})
+
 export const addtocard = createAsyncThunk("card/addtocard", async(args,thunkAPI)=>{
   const {rejectWithValue,getState} = thunkAPI
   try{
@@ -47,14 +68,21 @@ return prevShoppingcard
 })
 const cardSlice = createSlice({
   name:"card",
-  initialState:{shoppingcard:JSON.parse(localStorage.getItem("user")).shoppingcard || []},
+  initialState:{shoppingcard:JSON.parse(localStorage.getItem("user"))?JSON.parse(localStorage.getItem("user")).shoppingcard : []},
   extraReducers:{
     [addtocard.pending]:(state,action)=>{},
     [addtocard.fulfilled]:(state,action)=>{
       state.shoppingcard = action.payload
       console.log(state.shoppingcard)
     },
-    [addtocard.rejected]:(state,action)=>{}
+    [addtocard.rejected]:(state,action)=>{},
+    // action dellet all cards 
+    [delletAllCards.pending]:(state,action)=>{},
+    [delletAllCards.fulfilled]:(state,action)=>{
+      state.shoppingcard = []
+    },
+    [delletAllCards.rejected]:(state,action)=>{}
+
   }
 });
 

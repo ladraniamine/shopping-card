@@ -7,8 +7,7 @@ import { loggout } from '../redux/authSlice'
 const Navbar = () => {
  
   const {user} = useSelector(state => state.auth)
-  const {shoppingcard} = useSelector(state => state.card)
-  console.log(shoppingcard)
+ 
   const dispatch = useDispatch()
   
   const handleloggout = ()=>{
