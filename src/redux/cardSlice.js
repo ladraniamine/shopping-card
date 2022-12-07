@@ -7,8 +7,7 @@ export const addtocard = createAsyncThunk("card/addtocard", async(args,thunkAPI)
    
     const res = await fetch(`http://localhost:3005/data/${args.id}`)
     const targetCard = await res.json()
-    console.log(targetCard)
-    
+  
         const userID = await getState().auth.user.id
         //fetch the prev shoppingcard
         const res2 = await fetch(`http://localhost:3005/users/${userID}`)
@@ -30,21 +29,33 @@ export const addtocard = createAsyncThunk("card/addtocard", async(args,thunkAPI)
             prevShoppingcard.push(targetCard)
           }
         }
-
+        
             fetch(`http://localhost:3005/users/${userID}`, { 
   method: "PATCH",
   headers: {"Content-Type" : "application/json"},
   body: JSON.stringify({ "shoppingcard": prevShoppingcard })
 });
 
+// update the shopping card in locale storage
+const getuseInlocaleStorage = JSON.parse(localStorage.getItem("user"))
+getuseInlocaleStorage.shoppingcard = prevShoppingcard
+localStorage.setItem("user", JSON.stringify(getuseInlocaleStorage))
+return prevShoppingcard
   }catch(err){
     return rejectWithValue(err.message)
   }
 })
 const cardSlice = createSlice({
   name:"card",
-  initialState:{},
-  extraReducers:{}
+  initialState:{shoppingcard:JSON.parse(localStorage.getItem("user")).shoppingcard || []},
+  extraReducers:{
+    [addtocard.pending]:(state,action)=>{},
+    [addtocard.fulfilled]:(state,action)=>{
+      state.shoppingcard = action.payload
+      console.log(state.shoppingcard)
+    },
+    [addtocard.rejected]:(state,action)=>{}
+  }
 });
 
 export default cardSlice.reducer

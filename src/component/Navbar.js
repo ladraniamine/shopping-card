@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import ProductsComponent from './ProductsComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { loggout } from '../redux/authSlice'
 
 const Navbar = () => {
+ 
   const {user} = useSelector(state => state.auth)
+  
   const dispatch = useDispatch()
   
   const handleloggout = ()=>{
