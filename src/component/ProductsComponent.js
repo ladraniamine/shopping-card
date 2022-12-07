@@ -5,6 +5,7 @@ import { delletAllCards } from '../redux/cardSlice'
 
 const ProductsComponent = () => {
     const {shoppingcard} = useSelector(state => state.card)
+
     const dispatch = useDispatch()
     const zibuh = shoppingcard.length != 0 ? shoppingcard.map(card =>(
         <div className='col-12 row mx-0 px-0 py-2 align-items-center text-center'  key={card.id}>
@@ -31,7 +32,15 @@ const ProductsComponent = () => {
             <hr className='mt-2 m-auto' style={{"width":"50%"}}/>
         </div>
     )):<div>there is no card</div>
-   
+
+    let totalPrice = 0
+    if(shoppingcard.length == 0){
+        totalPrice = 0
+    }else{
+        //take the price * qnt 
+       const returnprice = shoppingcard.map( card => card.price * card.qnt)
+       console.log(returnprice)
+    }
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
         <div className='row w-100  mx-0 px-0 '>
