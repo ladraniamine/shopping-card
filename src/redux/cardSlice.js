@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+//==================== dellet all action ===============================================
 export const delletAllCards = createAsyncThunk("card/delletAllCardd", async(args,thunkAPI)=>{
       const {rejectWithValue , getState} = thunkAPI
       try{
@@ -20,8 +21,9 @@ localStorage.setItem("user", JSON.stringify(getuseInlocaleStorage))
       }catch(err){
         return rejectWithValue(err.message)
       }
-})
+})//===================================================================================
 
+//======================= add to card action ========================================
 export const addtocard = createAsyncThunk("card/addtocard", async(args,thunkAPI)=>{
   const {rejectWithValue,getState} = thunkAPI
   try{
@@ -65,24 +67,26 @@ return prevShoppingcard
   }catch(err){
     return rejectWithValue(err.message)
   }
-})
+})//=================================================================================
 const cardSlice = createSlice({
   name:"card",
   initialState:{shoppingcard:JSON.parse(localStorage.getItem("user"))?JSON.parse(localStorage.getItem("user")).shoppingcard : []},
   extraReducers:{
+    //================== action add to card ===========================
     [addtocard.pending]:(state,action)=>{},
     [addtocard.fulfilled]:(state,action)=>{
       state.shoppingcard = action.payload
       console.log(state.shoppingcard)
     },
     [addtocard.rejected]:(state,action)=>{},
-    // action dellet all cards 
+    //==================================================================
+    //=============== action dellet all cards ==========================
     [delletAllCards.pending]:(state,action)=>{},
     [delletAllCards.fulfilled]:(state,action)=>{
       state.shoppingcard = []
     },
     [delletAllCards.rejected]:(state,action)=>{}
-
+    //==================================================================
   }
 });
 
