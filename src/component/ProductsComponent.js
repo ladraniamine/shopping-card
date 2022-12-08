@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { delletAllCards } from '../redux/cardSlice'
 
@@ -33,14 +33,23 @@ const ProductsComponent = () => {
         </div>
     )):<div>there is no card</div>
 
-    let totalPrice = 0
-    if(shoppingcard.length == 0){
-        totalPrice = 0
-    }else{
-        //take the price * qnt 
-       const returnprice = shoppingcard.map( card => card.price * card.qnt)
-       console.log(returnprice)
-    }
+        const totaleprice = useCallback(()=>{
+            let totalePrice =0 
+   
+        if(shoppingcard.length == 0){
+            totalePrice = 0
+        }else{
+            //take the price * qnt 
+           const returnpriceALHPA = shoppingcard.map( card => card.price * card.qnt)
+           
+           const returnprice = returnpriceALHPA.reduce((acc , curr)=>{
+                return acc + curr
+           }) 
+          totalePrice =  returnprice
+        }
+        return totalePrice
+        },[shoppingcard])
+    
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
         <div className='row w-100  mx-0 px-0 '>
@@ -58,7 +67,7 @@ const ProductsComponent = () => {
             </div>
             <div className='col-4 '>
                 <div className='total-price px-2 text-danger' style={{"fontSize":"25px","fontWeight":"bold"}}>
-                    200$
+                    {totaleprice()}$
                 </div>
             </div>
         </div>

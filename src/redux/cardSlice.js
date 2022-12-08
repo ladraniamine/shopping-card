@@ -76,7 +76,6 @@ const cardSlice = createSlice({
     [addtocard.pending]:(state,action)=>{},
     [addtocard.fulfilled]:(state,action)=>{
       state.shoppingcard = action.payload
-      console.log(state.shoppingcard)
     },
     [addtocard.rejected]:(state,action)=>{},
     //==================================================================
