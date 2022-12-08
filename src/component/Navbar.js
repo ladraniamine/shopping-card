@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loggout } from '../redux/authSlice'
 
 const Navbar = () => {
- 
+  const {shoppingcard} = useSelector(state => state.card)
   const {user} = useSelector(state => state.auth)
  
   const dispatch = useDispatch()
@@ -13,6 +13,10 @@ const Navbar = () => {
   const handleloggout = ()=>{
     dispatch(loggout())
   }
+  const returnqnt = shoppingcard.map(card => card.qnt)
+  const totaleqnt = returnqnt.length !== 0 ? returnqnt.reduce((acc,curr)=>{
+    return acc+ curr
+  }):"0"
   return (
     <nav class="navbar bg-dark text-light " style={{"position":"fixed","top":"0","width":"100%","zIndex":"11"}}>
     <div class="container-fluid">
@@ -37,7 +41,9 @@ const Navbar = () => {
                     <div className='bg-dark coma-drop '></div>
                     <ProductsComponent/>
                 </div>
-                <span className='total-cards'>2</span>
+                <span className='total-cards'>
+                  {shoppingcard.length !== 0 ? totaleqnt:"0"}
+                </span>
               
             </a>
         </li>
