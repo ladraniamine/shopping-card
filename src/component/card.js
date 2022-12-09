@@ -14,7 +14,8 @@ const Card = () => {
   //=====================================================================
 
   //======================== get data from initialstate =================
-    const {cards} = useSelector(state => state.data)                   //
+    const {cards} = useSelector(state => state.data) 
+    // console.log(cards)                  //
     const {isloading}= useSelector(state=>state.data)                  //
   //=====================================================================
 

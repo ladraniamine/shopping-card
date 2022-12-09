@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addcard } from "./stockSlice";
+import { addcard } from "./dataSlice";
 
 //==================== dellet all action ===============================================
 export const delletAllCards = createAsyncThunk("card/delletAllCardd", async(args,thunkAPI)=>{

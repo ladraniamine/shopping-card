@@ -13,10 +13,43 @@ export const getDataCards =  createAsyncThunk('data/getDataCards',async(args,thu
     }
 })//====================================================================================
 
+//============ remove one product from the stock and update the stock ==================
+export const addcard = createAsyncThunk("stock/addcard" , async(args,thunkAPI)=>{
+    const {rejectWithValue} = thunkAPI
+    try{
+      
+      //get the same stock of the card that i clicked
+      const res = await fetch(`http://localhost:3005/data/${args.id}`)
+      const data = await res.json()
+      const stock = await data.stock
+      const newstock = await stock - 1
+      
+      //update the stock in my server
+      await fetch(`http://localhost:3005/data/${args.id}`,  { 
+        method: "PATCH",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify({ "stock": newstock  })
+      })
+
+      const res2 = await fetch("http://localhost:3005/data")
+      const data2 = await res2.json()
+      
+      //set new data in the locale storage 
+      localStorage.setItem("data", JSON.stringify(data2))
+      
+      return data2;
+    }
+    catch(err){
+        return rejectWithValue(err.message)
+    }
+})
+//===============================================================================
+
 export const dataSlice = createSlice({
 
     name:"data",
-    initialState:{cards:null, isloading:false},
+    initialState:{cards:JSON.parse(localStorage.getItem("data"))?JSON.parse(localStorage.getItem("data")):null,
+    isloading:false},
 
     extraReducers:{
     //================ get data card ================================
@@ -29,8 +62,12 @@ export const dataSlice = createSlice({
         },
         [getDataCards.rejected]:(state,action)=>{
             state.isloading = false
-        }
+        },
     //================================================================
+    // ===================== update data cards with new stock ========
+    [addcard.fulfilled]:(state,action)=>{
+        state.cards = action.payload
+    }
     }
 })
 
