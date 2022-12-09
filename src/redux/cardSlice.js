@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { addcard } from "./stockSlice";
 
 //==================== dellet all action ===============================================
 export const delletAllCards = createAsyncThunk("card/delletAllCardd", async(args,thunkAPI)=>{
@@ -25,9 +26,10 @@ localStorage.setItem("user", JSON.stringify(getuseInlocaleStorage))
 
 //======================= add to card action ========================================
 export const addtocard = createAsyncThunk("card/addtocard", async(args,thunkAPI)=>{
-  const {rejectWithValue,getState} = thunkAPI
+  const {rejectWithValue,getState,dispatch} = thunkAPI
   try{
-   
+     //send the id to stock slice
+    dispatch(addcard({id:args.id}))
     const res = await fetch(`http://localhost:3005/data/${args.id}`)
     const targetCard = await res.json()
   
