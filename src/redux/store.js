@@ -3,13 +3,15 @@ import dataSlice from "./dataSlice";
 import loginslice from "./loginslice";
 import authSlice from "./authSlice";
 import cardSlice from "./cardSlice";
+import stockSlice from "./stockSlice";
 
 const store = configureStore({
 
     reducer:{login:loginslice,
              data:dataSlice,
              auth:authSlice,
-             card:cardSlice
+             card:cardSlice,
+             stock:stockSlice
             }
 
 })
