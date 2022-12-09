@@ -34,7 +34,7 @@ export const addtocard = createAsyncThunk("card/addtocard", async(args,thunkAPI)
     const targetCard = await res.json()
   
         const userID = await getState().auth.user.id
-        //fetch the prev shoppingcard
+        //fetch the prev shoppingcard of the current user
         const res2 = await fetch(`http://localhost:3005/users/${userID}`)
         const getuser = await res2.json()
         const prevShoppingcard = await getuser.shoppingcard

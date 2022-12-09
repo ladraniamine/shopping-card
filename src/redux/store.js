@@ -3,7 +3,6 @@ import dataSlice from "./dataSlice";
 import loginslice from "./loginslice";
 import authSlice from "./authSlice";
 import cardSlice from "./cardSlice";
-import stockSlice from "./stockSlice";
 
 const store = configureStore({
 
@@ -11,7 +10,7 @@ const store = configureStore({
              data:dataSlice,
              auth:authSlice,
              card:cardSlice,
-             stock:stockSlice
+            
             }
 
 })
