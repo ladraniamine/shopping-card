@@ -1,20 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addcard } from "./dataSlice";
+import { addcard, backToTheStock } from "./dataSlice";
 
 //==================== dellet all action ===============================================
 export const delletAllCards = createAsyncThunk("card/delletAllCardd", async(args,thunkAPI)=>{
-      const {rejectWithValue , getState} = thunkAPI
+      const {rejectWithValue , getState,dispatch} = thunkAPI
       try{
+        dispatch(backToTheStock())
         const userID = await getState().auth.user.id
-
+       
           fetch(`http://localhost:3005/users/${userID}`, { 
             method: "PATCH",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({ "shoppingcard": [] })
           });
 
-// update the shopping card in locale storage
+//update the shopping card in locale storage
 const getuseInlocaleStorage = JSON.parse(localStorage.getItem("user"))
 getuseInlocaleStorage.shoppingcard = []
 localStorage.setItem("user", JSON.stringify(getuseInlocaleStorage))

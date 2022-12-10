@@ -44,6 +44,39 @@ export const addcard = createAsyncThunk("stock/addcard" , async(args,thunkAPI)=>
     }
 })
 //===============================================================================
+//========================= return cards to the stock data=======================
+export const backToTheStock = createAsyncThunk("data/backToTheStock", async(args,thunkAPI)=>{
+    const {rejectWithValue,getState} = thunkAPI
+    try{
+        const userID = await getState().auth.user.id
+       const res = await fetch(`http://localhost:3005/users/${userID}`)
+       const getuser = await res.json()
+       const getShoppingCardOfThisUser = await getuser.shoppingcard
+
+       for (let i = 0; i < getShoppingCardOfThisUser.length; i++) {
+            const res = await fetch(`http://localhost:3005/data/${getShoppingCardOfThisUser[i].id}`)
+            const data = await res.json()
+            const newstock = await data.stock + getShoppingCardOfThisUser[i].qnt
+        
+        await fetch(`http://localhost:3005/data/${getShoppingCardOfThisUser[i].id}`, { 
+                            method: "PATCH",
+                            headers: {"Content-Type" : "application/json"},
+                            body: JSON.stringify({ "stock": newstock })
+                        })  
+                        
+                    } 
+                    //update the stock in the localeStorage
+                    const res2 = await fetch("http://localhost:3005/data/")
+                    const data2 = await res2.json()
+                    return  data2
+
+                // getState().data.cards = data2
+    }catch(err){
+        return rejectWithValue(err.message)
+    }
+
+})
+//===============================================================================
 
 export const dataSlice = createSlice({
 
@@ -67,7 +100,18 @@ export const dataSlice = createSlice({
     // ===================== update data cards with new stock ========
     [addcard.fulfilled]:(state,action)=>{
         state.cards = action.payload
-    }
+       
+    },
+  
+    //================================================================
+    
+    [backToTheStock.fulfilled]:(state,action)=>{
+        state.cards = action.payload
+        const getDataCards = action.payload
+        localStorage.setItem("data", JSON.stringify(getDataCards))
+        
+    },
+    
     }
 })
 
