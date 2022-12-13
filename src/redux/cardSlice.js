@@ -72,6 +72,7 @@ return prevShoppingcard
     return rejectWithValue(err.message)
   }
 })//=================================================================================
+//=============================== extra buy action ==================================
 export const buy = createAsyncThunk("card/buy" , async ( {totalePrice} , thunkAPI)=>{
   const {rejectWithValue , getState} = thunkAPI
   try{
@@ -93,7 +94,7 @@ export const buy = createAsyncThunk("card/buy" , async ( {totalePrice} , thunkAP
   }catch(err){
     return rejectWithValue(err.message)
   }
-})
+})//=================================================================================
 
 const cardSlice = createSlice({
   name:"card",
