@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { buy } from "./cardSlice";
 
 //======================== extra action checkuser =====================================
 export const checkuser = createAsyncThunk("auth/checkuser", async(Data,thunkAPI)=>{
@@ -31,6 +32,10 @@ export const loggout = createAsyncThunk("auth/loggout", async(args,thunkAPI)=>{
     return rejectWithValue(err.message)
   }
 })
+//=====================================================================================
+
+//=====================================================================================
+
 //=====================================================================================
 
 export const authSlice = createSlice({
@@ -69,6 +74,7 @@ export const authSlice = createSlice({
                   state.isloggedIn = true
                   state.statusPassword = null
                   state.user = data
+                  console.log(data)
                   window.location = "http://localhost:3000/"
                 localStorage.setItem("user", JSON.stringify(data))
 
@@ -96,7 +102,10 @@ export const authSlice = createSlice({
           state.isloading = false;
         },
       //============================================
-
+        [buy.fulfilled]:(state , action)=>{
+          state.user = action.payload;
+          localStorage.setItem("user", JSON.stringify(action.payload))
+        }
     }//==============================================
 })
 export const {loggedin} = authSlice.actions

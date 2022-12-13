@@ -66,11 +66,35 @@ export const addtocard = createAsyncThunk("card/addtocard", async(args,thunkAPI)
 const getuseInlocaleStorage = JSON.parse(localStorage.getItem("user"))
 getuseInlocaleStorage.shoppingcard = prevShoppingcard
 localStorage.setItem("user", JSON.stringify(getuseInlocaleStorage))
+
 return prevShoppingcard
   }catch(err){
     return rejectWithValue(err.message)
   }
 })//=================================================================================
+export const buy = createAsyncThunk("card/buy" , async ( {totalePrice} , thunkAPI)=>{
+  const {rejectWithValue , getState} = thunkAPI
+  try{
+    const userID = getState().auth.user.id
+    const amount = getState().auth.user.amount
+    const newAmount = amount - totalePrice
+    
+    await fetch(`http://localhost:3005/users/${userID}`, { 
+      method: "PATCH",
+      headers: {"Content-Type" : "application/json"},
+      body: JSON.stringify({ "amount": newAmount , 
+                              "shoppingcard": [] })
+    });
+
+    const res = await fetch(`http://localhost:3005/users/${userID}`)
+    const data = await res.json()
+
+    return data
+  }catch(err){
+    return rejectWithValue(err.message)
+  }
+})
+
 const cardSlice = createSlice({
   name:"card",
   initialState:{shoppingcard:JSON.parse(localStorage.getItem("user"))?JSON.parse(localStorage.getItem("user")).shoppingcard : []},
@@ -87,8 +111,11 @@ const cardSlice = createSlice({
     [delletAllCards.fulfilled]:(state,action)=>{
       state.shoppingcard = []
     },
-    [delletAllCards.rejected]:(state,action)=>{}
+    [delletAllCards.rejected]:(state,action)=>{},
     //==================================================================
+   [buy.fulfilled]:(state )=>{
+    state.shoppingcard = []
+   }
   }
 });
 

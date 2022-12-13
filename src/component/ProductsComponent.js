@@ -1,7 +1,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { delletAllCards } from '../redux/cardSlice'
+import { buy, delletAllCards } from '../redux/cardSlice'
 
 const ProductsComponent = () => {
     const {shoppingcard} = useSelector(state => state.card)
@@ -49,6 +49,10 @@ const ProductsComponent = () => {
         }
         return totalePrice
         },[shoppingcard])
+
+        const hanldebuy = ()=>{
+            dispatch(buy({totalePrice: totaleprice()}))
+        }
     
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
@@ -62,7 +66,11 @@ const ProductsComponent = () => {
                             <button className='btn btn-danger' style={{"fontSize":"10px" ,"marginRight":"4px"}}
                                 onClick={()=>{dispatch(delletAllCards())}}
                             >dellet all</button>
-                            <button className='btn btn-success' style={{"fontSize":"10px"}}>buy</button>
+                            <button className='btn btn-success' style={{"fontSize":"10px"}}
+                            onClick={hanldebuy}
+                            >
+                                
+                            buy</button>
                        </div>
             </div>
             <div className='col-4 '>
