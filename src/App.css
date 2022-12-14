@@ -57,5 +57,9 @@ font-family: 'Cairo', sans-serif;
   right: 16px;
   transform: rotate(137deg);
 }
-
-
+.empty-message{
+  font-size: 12px;
+    text-align: start;
+    width: 200px;
+    margin: auto;
+}
