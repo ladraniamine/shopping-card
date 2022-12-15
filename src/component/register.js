@@ -16,42 +16,42 @@ const Register = () => {
     const Password = password.current.value
 
     if(FullName === "" && Email === "" && Password === ""){
-      console.log("fullname and email and password are empty")
+      //fullname and email and password are empty
       setisfullname(true)
       setisemail(true)
       setispassword(true)
     }else if(FullName === "" && Email === "" && Password != ""){
-        console.log("fullname and email are empty")
-        setisfullname(true)
+        //fullname and email are empty
+      setisfullname(true)
       setisemail(true)
       setispassword(false)
     }else if(FullName === "" && Email != "" && Password === ""){
-      console.log("fullname and password are empty")
+      //fullname and password are empty
       setisfullname(true)
       setisemail(false)
       setispassword(true)
     }else if(FullName != "" && Email === "" && Password === ""){
-      console.log("email and password are empty")
+      //email and password are empty
       setisfullname(false)
       setisemail(true)
       setispassword(true)
     }else if (FullName === "" && Email != "" && Password != ""){
-      console.log("fullname is empty")
+      //fullname is empty
       setisfullname(true)
       setisemail(false)
       setispassword(false)
     }else if (FullName != "" && Email === "" && Password != ""){
-      console.log("email is empty")
+      //email is empty
       setisfullname(false)
       setisemail(true)
       setispassword(false)
     }else if(FullName != "" && Email != "" && Password === ""){
-      console.log("password is empty")
+      //password is empty
       setisfullname(false)
       setisemail(false)
       setispassword(true)
     }else{
-      console.log("login")
+      //registration successfuly
       setisfullname(false)
       setisemail(false)
       setispassword(false)
