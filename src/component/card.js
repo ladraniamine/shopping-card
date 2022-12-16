@@ -23,7 +23,7 @@ const Card = () => {
   const returndatacard =  cards?cards.map( card =>(
       <div className='col-sm-6 col-md-4 col-lg-3' key={card.id} >
         <div className="card my-3 mx-auto" style={{"maxWidth":"18rem"}}>
-          <img src={require("../images/amazin-card.jpg")} className="card-img-top" alt="..." />
+          <img src={card.nameOfProduct == "google play cards"?require("../images/google-play.jpg"):require("../images/amazin-card.jpg")} className="card-img-top" alt="..." />
           <div className="card-body">
             <h5 className="card-title">{card.nameOfProduct} <span>{card.price}$</span></h5>
             <div className='mb-2'>stock: <strong>{card.stock}</strong></div>

@@ -7,11 +7,11 @@ const ProductsComponent = () => {
     const {shoppingcard} = useSelector(state => state.card)
 
     const dispatch = useDispatch()
-    const zibuh = shoppingcard.length != 0 ? shoppingcard.map(card =>(
+    const displayCards = shoppingcard.length != 0 ? shoppingcard.map(card =>(
         <div className='col-12 row mx-0 px-0 py-2 align-items-center text-center'  key={card.id}>
             <div className='col-3'>
                 <div className='product-image' style={{"width":"50px", "height":"50px","backgroundColor":"red","borderRadius":"50%","overflow":"hidden"}}>
-                    <img className='img-fluid h-100' src={require("../images/amazin-card.jpg")} />
+                    <img className='img-fluid h-100' src={card.nameOfProduct == "google play cards"?require("../images/google-play.jpg"):require("../images/amazin-card.jpg")} />
                 </div>
             </div>
             <div className='col-4'>
@@ -31,7 +31,7 @@ const ProductsComponent = () => {
             </div>
             <hr className='mt-2 m-auto' style={{"width":"50%"}}/>
         </div>
-    )):<div>there is no card</div>
+    )):<div className='text-center'>there is no card</div>
 
         const totaleprice = useCallback(()=>{
             let totalePrice =0 
@@ -57,7 +57,7 @@ const ProductsComponent = () => {
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
         <div className='row w-100  mx-0 px-0 '>
-                {zibuh}
+                {displayCards}
         </div>
 
         <div className='row mx-0 w-100 align-items-center mt-4'>

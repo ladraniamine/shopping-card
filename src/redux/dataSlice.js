@@ -26,7 +26,6 @@ export const addcard = createAsyncThunk("stock/addcard" , async(args,thunkAPI)=>
       const newstock = await stock - 1
          if(newstock === 0){
             //remove the card from the server
-            console.log("remove the card ")
             await fetch(`http://localhost:3005/data/${args.id}`,  { 
                 method: "DELETE",
               })
