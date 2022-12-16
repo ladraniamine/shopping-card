@@ -22,15 +22,23 @@ export const addcard = createAsyncThunk("stock/addcard" , async(args,thunkAPI)=>
       const res = await fetch(`http://localhost:3005/data/${args.id}`)
       const data = await res.json()
       const stock = await data.stock
+      // new stock 
       const newstock = await stock - 1
+         if(newstock === 0){
+            //remove the card from the server
+            console.log("remove the card ")
+            await fetch(`http://localhost:3005/data/${args.id}`,  { 
+                method: "DELETE",
+              })
+         }else{
+            //update the stock of the card in my server 
+            await fetch(`http://localhost:3005/data/${args.id}`,  { 
+              method: "PATCH",
+              headers: {"Content-Type" : "application/json"},
+              body: JSON.stringify({ "stock": newstock  })
+            })
+         }
       
-      //update the stock in my server
-      await fetch(`http://localhost:3005/data/${args.id}`,  { 
-        method: "PATCH",
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify({ "stock": newstock  })
-      })
-
       const res2 = await fetch("http://localhost:3005/data")
       const data2 = await res2.json()
       
@@ -52,25 +60,44 @@ export const backToTheStock = createAsyncThunk("data/backToTheStock", async(args
        const res = await fetch(`http://localhost:3005/users/${userID}`)
        const getuser = await res.json()
        const getShoppingCardOfThisUser = await getuser.shoppingcard
-
+       
        for (let i = 0; i < getShoppingCardOfThisUser.length; i++) {
-            const res = await fetch(`http://localhost:3005/data/${getShoppingCardOfThisUser[i].id}`)
-            const data = await res.json()
-            const newstock = await data.stock + getShoppingCardOfThisUser[i].qnt
-        
-        await fetch(`http://localhost:3005/data/${getShoppingCardOfThisUser[i].id}`, { 
-                            method: "PATCH",
-                            headers: {"Content-Type" : "application/json"},
-                            body: JSON.stringify({ "stock": newstock })
-                        })  
-                        
-                    } 
-                    //update the stock in the localeStorage
+        const res = await fetch(`http://localhost:3005/data/${getShoppingCardOfThisUser[i].id}`)
+        const data = await res.json() 
+
+            if(res.status === 404){
+                console.log("im here")
+                //this card it doesnt exist
+
+                await fetch("http://localhost:3005/data", { 
+                                    method: "POST",
+                                    headers: {"Content-Type" : "application/json"},
+                                    body: JSON.stringify({ "id": getShoppingCardOfThisUser[i].id,
+                                                            "nameOfProduct": getShoppingCardOfThisUser[i].nameOfProduct,
+                                                            "price": getShoppingCardOfThisUser[i].price,
+                                                            "image":getShoppingCardOfThisUser[i].image,
+                                                            "stock":getShoppingCardOfThisUser[i].qnt,
+                                                            "qnt":1                         })
+                                })  
+
+            }else{
+                //this card exist
+               
+                const newstock = await data.stock + getShoppingCardOfThisUser[i].qnt
+            
+            await fetch(`http://localhost:3005/data/${getShoppingCardOfThisUser[i].id}`, { 
+                                method: "PATCH",
+                                headers: {"Content-Type" : "application/json"},
+                                body: JSON.stringify({ "stock": newstock })
+                            })  
+                            
+                        } 
+            }
+                    
                     const res2 = await fetch("http://localhost:3005/data/")
                     const data2 = await res2.json()
                     return  data2
 
-                // getState().data.cards = data2
     }catch(err){
         return rejectWithValue(err.message)
     }
