@@ -9,6 +9,7 @@ export const newRegistration = createAsyncThunk("auth/newRegistration", async ({
       const res = await fetch('http://localhost:3005/users')
       const data = await res.json()
       const id = data.length+1
+
       const existUsername = await data.find(user => user.username === fullname)
       const existEmail = await data.find(user => user.email === email)
 
@@ -33,7 +34,18 @@ export const newRegistration = createAsyncThunk("auth/newRegistration", async ({
       }
       //if email and username is deosn't exist in my data base 
       if(existEmail === undefined && existUsername === undefined){
-        console.log("add this user")
+        await fetch("http://localhost:3005/users", { 
+          method: "POST",
+          headers: {"Content-Type" : "application/json"},
+          body: JSON.stringify({ "id": id ,
+                                 "username": fullname,
+                                 "email":email,
+                                 "password": password ,
+                                 "amount": 10000,
+                                 "shoppingcard": [] })
+        });
+
+        window.location = "http://localhost:3000/login"
       }
           
       return {isemailexist , isusernameexist}
@@ -45,9 +57,11 @@ export const newRegistration = createAsyncThunk("auth/newRegistration", async ({
 
 const registerSlice = createSlice({
   name:"register",
-  initialState:{emailexist : false , usernameexist: false},
+  initialState:{emailexist : false , usernameexist: false , isloading:false},
   extraReducers:{
-    [newRegistration.pending]:(state , action)=>{},
+    [newRegistration.pending]:(state , action)=>{
+      state.isloading = true
+    },
     [newRegistration.fulfilled]:(state,action)=>{
       const {isemailexist , isusernameexist} = action.payload
       state.emailexist = isemailexist

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 import { newRegistration } from '../redux/registerSlice'
 
 const Register = () => {
@@ -8,14 +7,17 @@ const Register = () => {
 
   const {emailexist} = useSelector(state => state.register)
   const {usernameexist} = useSelector(state => state.register)
-  
+  const {isloading} = useSelector(state=> state.register)
+
   const [emailexst,setemailexst] = useState(emailexist)
   const [usernameexst,seteusernameexst] = useState(usernameexist)
 
+  //watch changes in emailexist
   useEffect(()=>{
     setemailexst(emailexist)
   },[emailexist])
-  
+
+  //watch changes in usernameexist
   useEffect(()=>{
     seteusernameexst(usernameexist)
   },[usernameexist])
@@ -80,6 +82,10 @@ const Register = () => {
     }
 }
 
+const handlelogin = ()=>{
+  window.location = "http://localhost:3000/login"
+}
+
   return (
     <div className='row' style={{"width":"100vw","height":"100vh"}}>
       <div className=' row m-auto '>
@@ -98,9 +104,12 @@ const Register = () => {
             {ispassword?<div className='text-danger empty-message'>you should enter the password</div>:""}
           </div>
           <div className='col-12 text-center mt-2'>
-            <NavLink to="/register">
-            <button className='btn btn-primary' onClick={handlesubmit} >register</button>
-            </NavLink>
+            
+            <button className='btn btn-primary mx-2' onClick={handlelogin}>login</button>
+            
+            <button className='btn btn-primary' onClick={handlesubmit} >register
+            {isloading?<span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>:""}
+            </button>
           </div>
       </div>
     </div>
