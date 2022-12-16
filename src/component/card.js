@@ -25,7 +25,7 @@ const Card = () => {
         <div className="card my-3 mx-auto" style={{"maxWidth":"18rem"}}>
           <img src={card.nameOfProduct == "google play cards"?require("../images/google-play.jpg"):require("../images/amazin-card.jpg")} className="card-img-top" alt="..." />
           <div className="card-body">
-            <h5 className="card-title">{card.nameOfProduct} <span>{card.price}$</span></h5>
+            <h5 className="card-title">{card.nameOfProduct} <span style={{"fontWeight":"bold" , "color":"#0033c5"}}>{card.price}$</span></h5>
             <div className='mb-2'>stock: <strong>{card.stock}</strong></div>
             <button className="btn btn-primary" onClick={()=>{dispatch(addtocard({id:card.id}))}}>add to card</button>
           </div>
