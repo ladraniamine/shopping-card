@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { newRegistration } from '../redux/registerSlice'
 
@@ -29,8 +29,9 @@ const Register = () => {
   const [isfullname,setisfullname] = useState(false)
   const [isemail,setisemail] = useState(false)
   const [ispassword,setispassword] = useState(false)
-
-  const handlesubmit = ()=>{
+  
+  //when i create new account
+  const handlesubmit = useCallback(()=>{
     const FullName = fullname.current.value
     const Email = email.current.value
     const Password = password.current.value
@@ -80,37 +81,36 @@ const Register = () => {
       setispassword(false)
       dispatch(newRegistration({fullname:FullName , email:Email , password:Password}))
     }
-}
+})
 
-const handlelogin = ()=>{
+  //when i return to login page
+const handlelogin = useCallback( ()=>{
   window.location = "http://localhost:3000/login"
-}
+})
 
   return (
     <div className='row' style={{"width":"100vw","height":"100vh"}}>
       {console.log("register render")}
       <div className=' row m-auto '>
           <div className='col-12 text-center'>
-            <input ref={fullname} className={isfullname?"form-control m-auto border-danger":"form-control m-auto"} placeholder='full name' style={{"width":"200px"}} />
-            {isfullname?<div className='text-danger empty-message'>you should enter the fullname</div>:""}
-            {usernameexst?<div className='text-danger empty-message'>this username is existed</div>:""}
+             <input ref={fullname} className={isfullname?"form-control m-auto border-danger":"form-control m-auto"} placeholder='full name' style={{"width":"200px"}} />
+             {isfullname?<div className='text-danger empty-message'>you should enter the fullname</div>:""}
+             {usernameexst?<div className='text-danger empty-message'>this username is existed</div>:""}
           </div>
           <div className='col-12 text-center mt-2'>
-            <input ref={email} className={isemail?"form-control m-auto border-danger":"form-control m-auto"} type="email" placeholder='email' style={{"width":"200px"}} required/>
-           {isemail? <div className='text-danger empty-message'>you should enter the email</div>:""}
-           {emailexst?<div className='text-danger empty-message'>this email is existed</div>:""}
+             <input ref={email} className={isemail?"form-control m-auto border-danger":"form-control m-auto"} type="email" placeholder='email' style={{"width":"200px"}} required/>
+             {isemail? <div className='text-danger empty-message'>you should enter the email</div>:""}
+             {emailexst?<div className='text-danger empty-message'>this email is existed</div>:""}
           </div>
           <div className='col-12 text-center mt-2'>
-            <input ref={password} className={ispassword?"form-control m-auto border-danger":"form-control m-auto"} type="password" placeholder='password' style={{"width":"200px"}} />
-            {ispassword?<div className='text-danger empty-message'>you should enter the password</div>:""}
+             <input ref={password} className={ispassword?"form-control m-auto border-danger":"form-control m-auto"} type="password" placeholder='password' style={{"width":"200px"}} />
+             {ispassword?<div className='text-danger empty-message'>you should enter the password</div>:""}
           </div>
           <div className='col-12 text-center mt-2'>
-            
-            <button className='btn btn-primary mx-2' onClick={handlelogin}>login</button>
-            
-            <button className='btn btn-primary' onClick={handlesubmit} >register
-            {isloading?<span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>:""}
-            </button>
+             <button className='btn btn-primary mx-2' onClick={handlelogin}>login</button>
+             <button className='btn btn-primary' onClick={handlesubmit} >register
+             {isloading?<span class="spinner-border spinner-border-sm mx-3" role="status" aria-hidden="true"></span>:""}
+             </button>
           </div>
       </div>
     </div>

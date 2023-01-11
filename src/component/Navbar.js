@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import ProductsComponent from './ProductsComponent'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ const Navbar = () => {
   const handleloggout = useCallback(()=>{
     dispatch(loggout())
   }) 
-  
+
   const returnqnt = shoppingcard.map(card => card.qnt)
   const totaleqnt = returnqnt.length !== 0 ? returnqnt.reduce((acc,curr)=>{
     return acc+ curr
