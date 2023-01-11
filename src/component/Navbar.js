@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import ProductsComponent from './ProductsComponent'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,15 +10,18 @@ const Navbar = () => {
  
   const dispatch = useDispatch()
   
-  const handleloggout = ()=>{
+  const handleloggout = useCallback(()=>{
     dispatch(loggout())
-  }
+  }) 
+  
   const returnqnt = shoppingcard.map(card => card.qnt)
   const totaleqnt = returnqnt.length !== 0 ? returnqnt.reduce((acc,curr)=>{
     return acc+ curr
   }):"0"
+
   return (
     <nav class="navbar bg-dark text-light " style={{"position":"fixed","top":"0","width":"100%","zIndex":"11"}}>
+      {console.log("nav bar render ")}
     <div class="container-fluid">
       <div>
       <span class="navbar-brand mb-0 h1">{user?user.username:"annonyme"}</span>

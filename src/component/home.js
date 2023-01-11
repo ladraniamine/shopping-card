@@ -6,6 +6,7 @@ const Home = () => {
   
   return (
     <div>
+      {console.log("home render ")}
       <Navbar />     
       <div className='row  text-center mt-5 mx-0 '>
         <Card  />

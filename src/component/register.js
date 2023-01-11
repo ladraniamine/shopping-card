@@ -88,6 +88,7 @@ const handlelogin = ()=>{
 
   return (
     <div className='row' style={{"width":"100vw","height":"100vh"}}>
+      {console.log("register render")}
       <div className=' row m-auto '>
           <div className='col-12 text-center'>
             <input ref={fullname} className={isfullname?"form-control m-auto border-danger":"form-control m-auto"} placeholder='full name' style={{"width":"200px"}} />

@@ -65,7 +65,7 @@ export const backToTheStock = createAsyncThunk("data/backToTheStock", async(args
         const data = await res.json() 
 
             if(res.status === 404){
-                console.log("im here")
+              
                 //this card it doesnt exist
 
                 await fetch("http://localhost:3005/data", { 

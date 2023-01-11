@@ -1,5 +1,5 @@
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback  } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { buy, delletAllCards } from '../redux/cardSlice'
 
@@ -7,6 +7,7 @@ const ProductsComponent = () => {
     const {shoppingcard} = useSelector(state => state.card)
 
     const dispatch = useDispatch()
+
     const displayCards = shoppingcard.length != 0 ? shoppingcard.map(card =>(
         <div className='col-12 row mx-0 px-0 py-2 align-items-center text-center'  key={card.id}>
             <div className='col-3'>
@@ -56,6 +57,7 @@ const ProductsComponent = () => {
     
   return (
     <div className=' w-100 h-100 row mx-0' style={{"alignContent":"space-between"}}>
+        {console.log("product component render ")}
         <div className='row w-100  mx-0 px-0 '>
                 {displayCards}
         </div>

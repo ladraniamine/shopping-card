@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from 'react'
+import React, {  useCallback, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { checkuser } from '../redux/authSlice'
@@ -10,15 +10,17 @@ const Login = () => {
   const email = useRef()
   const password = useRef()
 
-  const handleSubmit = (e)=>{
+  const handleSubmit =  useCallback((e)=>{
     e.preventDefault()
       dispatch(checkuser({email:email.current.value , 
                       password:password.current.value}))
                  
-  }
+  })
+
   return (
     
     <div className='row  ' style={{"height":"100vh" , "width":"100vw"}} >
+      {console.log("login render ")}
         
         <form className='row m-auto' style={{"width":"100vw"}}>
             <h1 className='col-12 text-center'>please register</h1>

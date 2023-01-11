@@ -49,7 +49,8 @@ const Card = () => {
   //=======================================================================
    return (  
       <>
-        {isloading?duplicatPendingCards.map(card => returnCardPending):returndatacard}
+      {console.log("card render")}
+      {isloading?duplicatPendingCards.map(card => returnCardPending):returndatacard}
       </>
   )
 }
